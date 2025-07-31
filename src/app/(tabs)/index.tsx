@@ -13,13 +13,12 @@ import React, {
 import {
     Alert,
     Animated,
-    KeyboardAvoidingView,
-    ScrollView,
     StyleSheet,
     Text,
     TextInput,
     View,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface DenominationInput {
     value: number;
@@ -185,67 +184,61 @@ export default function HomeScreen() {
     };
 
     return (
-        <KeyboardAvoidingView
-            style={[styles.container, { flex: 1 }]}
-            behavior="padding"
-            keyboardVerticalOffset={60}
+        <KeyboardAwareScrollView
+            contentContainerStyle={styles.scrollContent}
+            enableOnAndroid={true}
+            extraScrollHeight={30}
+            keyboardShouldPersistTaps="handled"
         >
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                keyboardShouldPersistTaps="handled"
-                keyboardDismissMode="interactive"
-            >
-                {/*  <Text style={styles.tittle}>
-                    Introduzca la cantidad de billetes
-                </Text> */}
-                {denominations.map((item, index) => (
-                    <Animated.View
-                        key={item.value}
-                        style={[
-                            styles.row,
-                            {
-                                opacity: animations[index].opacity,
-                                transform: [
-                                    {
-                                        translateY:
-                                            animations[index].translateY,
-                                    },
-                                ],
-                            },
-                        ]}
-                    >
-                        <Text style={styles.denomination}>${item.value}</Text>
-                        <TextInput
-                            style={styles.input}
-                            keyboardType="numeric"
-                            value={item.quantity}
-                            onChangeText={(text) =>
-                                handleQuantityChange(text, index)
-                            }
-                            placeholder="0"
-                            placeholderTextColor={colors.textSecondary}
-                            selectTextOnFocus={true} // selecciona todo el texto al enfocar
-                        />
-                        <Text style={styles.total}>${item.total}</Text>
-                    </Animated.View>
-                ))}
-                <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
+            {/*  <Text style={styles.tittle}>
+                Introduzca la cantidad de billetes
+            </Text> */}
+            {denominations.map((item, index) => (
+                <Animated.View
+                    key={item.value}
+                    style={[
+                        styles.row,
+                        {
+                            opacity: animations[index].opacity,
+                            transform: [
+                                {
+                                    translateY: animations[index].translateY,
+                                },
+                            ],
+                        },
+                    ]}
+                >
+                    <Text style={styles.denomination}>${item.value}</Text>
+                    <TextInput
+                        style={styles.input}
+                        keyboardType="numeric"
+                        value={item.quantity}
+                        onChangeText={(text) =>
+                            handleQuantityChange(text, index)
+                        }
+                        placeholder="0"
+                        placeholderTextColor={colors.textSecondary}
+                        selectTextOnFocus={true} // selecciona todo el texto al enfocar
+                    />
+                    <Text style={styles.total}>${item.total}</Text>
+                </Animated.View>
+            ))}
+            <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
 
-                <View style={styles.buttonContainer}>
-                    <Button
-                        onPress={clearData}
-                        childIcon={
-                            <Feather name="trash-2" size={30} color="white" />
-                        }
-                    />
-                    <Button
-                        onPress={handleSave}
-                        childIcon={
-                            <Fontisto name="favorite" size={30} color="white" />
-                        }
-                    />
-                </View>
-            </ScrollView>
-        </KeyboardAvoidingView>
+            <View style={styles.buttonContainer}>
+                <Button
+                    onPress={clearData}
+                    childIcon={
+                        <Feather name="trash-2" size={30} color="white" />
+                    }
+                />
+                <Button
+                    onPress={handleSave}
+                    childIcon={
+                        <Fontisto name="favorite" size={30} color="white" />
+                    }
+                />
+            </View>
+        </KeyboardAwareScrollView>
     );
 }

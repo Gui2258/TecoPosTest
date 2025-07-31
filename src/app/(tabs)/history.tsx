@@ -1,27 +1,63 @@
 import { useTheme } from '@/src/context/ThemeContext';
 import { BillEntry, readBillEntries } from '@/src/utils/utils';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-    Dimensions,
+    Animated,
     Pressable,
     RefreshControl,
     ScrollView,
     StyleSheet,
     Text,
-    View,
 } from 'react-native';
 
 export default function About() {
     const [entries, setEntries] = useState<BillEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const { colors } = useTheme();
+    const rotation = useRef(new Animated.Value(0)).current;
+
+    // Referencia a un arreglo de Animated.Values para animar cada fila
+    const animations = useRef<
+        {
+            opacity: Animated.Value;
+            translateY: Animated.Value;
+        }[]
+    >([]);
+
+    // Inicializar valores animados cuando cambian las entradas
+    useEffect(() => {
+        animations.current = entries.map(() => ({
+            opacity: new Animated.Value(0),
+            translateY: new Animated.Value(-20),
+        }));
+
+        // Animar secuencialmente las filas
+        const animationsSequence = entries.map((_, i) =>
+            Animated.parallel([
+                Animated.timing(animations.current[i].opacity, {
+                    toValue: 1,
+                    duration: 300,
+                    delay: i * 100,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(animations.current[i].translateY, {
+                    toValue: 0,
+                    duration: 300,
+                    delay: i * 100,
+                    useNativeDriver: true,
+                }),
+            ])
+        );
+
+        Animated.stagger(100, animationsSequence).start();
+    }, [entries]);
 
     const getBilies = async () => {
+        setLoading(true);
         try {
-            const entries = await readBillEntries();
-            // Corrección 3: Siempre recibimos un array (vacío si no hay datos)
-            setEntries(entries);
+            const entriesFromStorage = await readBillEntries();
+            setEntries(entriesFromStorage);
         } catch (error) {
             console.error('Error leyendo entradas:', error);
         } finally {
@@ -44,8 +80,21 @@ export default function About() {
             minute: '2-digit',
         });
     };
+    const animateRotation = () => {
+        // Reiniciamos el valor a 0 antes de animar para permitir múltiples clics
+        rotation.setValue(0);
 
-    const { width } = Dimensions.get('screen');
+        Animated.timing(rotation, {
+            toValue: 1, // de 0 a 1 (un ciclo completo)
+            duration: 800, // duración en milisegundos
+            useNativeDriver: true,
+        }).start(() => {
+            // Al terminar la animación, podemos hacer algo aquí si quieres
+        });
+
+        // Además, refrescamos datos:
+        getBilies();
+    };
 
     const styles = StyleSheet.create({
         container: {
@@ -85,9 +134,8 @@ export default function About() {
             right: 20,
             backgroundColor: colors.primary,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 30,
             marginTop: 30,
-
             alignItems: 'center',
             justifyContent: 'center',
             alignSelf: 'center',
@@ -109,6 +157,16 @@ export default function About() {
         },
     });
 
+    const rotateInterpolate = rotation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
+
+    // Añadimos estilo animado para rotar:
+    const animatedStyle = {
+        transform: [{ rotate: rotateInterpolate }],
+    };
+
     return (
         <>
             <ScrollView
@@ -128,25 +186,41 @@ export default function About() {
                     <Text>No hay registros</Text>
                 ) : (
                     entries.map((entry, index) => (
-                        <View key={index} style={styles.entry}>
+                        <Animated.View
+                            key={index}
+                            style={[
+                                styles.entry,
+                                {
+                                    opacity:
+                                        animations.current[index]?.opacity || 1,
+                                    transform: [
+                                        {
+                                            translateY:
+                                                animations.current[index]
+                                                    ?.translateY || 0,
+                                        },
+                                    ],
+                                },
+                            ]}
+                        >
                             <Text style={styles.date}>
                                 {formatDate(entry.date)}
                             </Text>
                             <Text style={styles.amount}>
                                 ${entry.total.toLocaleString('es-ES')}
                             </Text>
-                        </View>
+                        </Animated.View>
                     ))
                 )}
             </ScrollView>
-            <Pressable style={{ width: '100%' }} onPress={getBilies}>
-                <View style={styles.button}>
+            <Pressable style={{ width: '100%' }} onPress={animateRotation}>
+                <Animated.View style={[styles.button, animatedStyle]}>
                     <Ionicons
                         name="refresh"
                         size={24}
                         color={colors.background}
                     />
-                </View>
+                </Animated.View>
             </Pressable>
         </>
     );

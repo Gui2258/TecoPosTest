@@ -3,23 +3,34 @@ import { useTheme } from '@/src/context/ThemeContext';
 import { createBillEntry } from '@/src/utils/utils';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import {
-    Dimensions,
+    Animated,
     KeyboardAvoidingView,
+    Platform,
     ScrollView,
     StyleSheet,
     Text,
     TextInput,
     View,
 } from 'react-native';
+
 interface DenominationInput {
     value: number;
     quantity: string;
     total: number;
 }
+
 export default function HomeScreen() {
     const { colors } = useTheme();
+
+    // Estado para denominaciones
     const [denominations, setDenominations] = useState<DenominationInput[]>([
         { value: 1000, quantity: '0', total: 0 },
         { value: 500, quantity: '0', total: 0 },
@@ -31,6 +42,36 @@ export default function HomeScreen() {
         { value: 5, quantity: '0', total: 0 },
         { value: 1, quantity: '0', total: 0 },
     ]);
+
+    // Arreglo de Animated.Values para cada fila (opacidad y desplazamiento Y)
+    const animations = useRef(
+        denominations.map(() => ({
+            opacity: new Animated.Value(0),
+            translateY: new Animated.Value(-20),
+        }))
+    ).current;
+
+    // Al montar el componente, animamos todas las filas secuencialmente
+    useEffect(() => {
+        const animationsSequence = denominations.map((_, i) =>
+            Animated.parallel([
+                Animated.timing(animations[i].opacity, {
+                    toValue: 1,
+                    duration: 300,
+                    delay: i * 100,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(animations[i].translateY, {
+                    toValue: 0,
+                    duration: 300,
+                    delay: i * 100,
+                    useNativeDriver: true,
+                }),
+            ])
+        );
+        Animated.stagger(100, animationsSequence).start();
+    }, [animations, denominations]);
+
     const handleQuantityChange = useCallback((text: string, index: number) => {
         const numericText = text.replace(/[^0-9]/g, '');
 
@@ -46,16 +87,17 @@ export default function HomeScreen() {
             return newDenominations;
         });
     }, []);
+
     const totalSum = useMemo(
         () => denominations.reduce((acc, curr) => acc + curr.total, 0),
         [denominations]
     );
-    const { width } = Dimensions.get('screen');
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
             backgroundColor: colors.background,
-            //padding: 16,
+            padding: 16,
         },
         scrollContent: {
             backgroundColor: colors.background,
@@ -108,7 +150,6 @@ export default function HomeScreen() {
             justifyContent: 'space-between',
             marginTop: 16,
         },
-
         text: {
             color: colors.background,
             fontSize: 20,
@@ -126,18 +167,37 @@ export default function HomeScreen() {
         setDenominations(newDenominations);
     };
 
-    const saveCount = async () => {
-        await createBillEntry(totalSum);
+    const handleSave = () => {
+        createBillEntry(totalSum);
     };
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={'position'}>
+        <KeyboardAvoidingView
+            style={[styles.container, { flex: 1 }]}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        >
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"
+                keyboardDismissMode="interactive"
             >
                 {denominations.map((item, index) => (
-                    <View key={item.value} style={styles.row}>
+                    <Animated.View
+                        key={item.value}
+                        style={[
+                            styles.row,
+                            {
+                                opacity: animations[index].opacity,
+                                transform: [
+                                    {
+                                        translateY:
+                                            animations[index].translateY,
+                                    },
+                                ],
+                            },
+                        ]}
+                    >
                         <Text style={styles.denomination}>${item.value}</Text>
                         <TextInput
                             style={styles.input}
@@ -148,10 +208,10 @@ export default function HomeScreen() {
                             }
                             placeholder="0"
                             placeholderTextColor={colors.textSecondary}
-                            selectTextOnFocus={true}
+                            selectTextOnFocus={true} // selecciona todo el texto al enfocar
                         />
                         <Text style={styles.total}>${item.total}</Text>
-                    </View>
+                    </Animated.View>
                 ))}
                 <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
 
@@ -163,7 +223,7 @@ export default function HomeScreen() {
                         }
                     />
                     <Button
-                        onPress={saveCount}
+                        onPress={handleSave}
                         childIcon={
                             <Fontisto name="favorite" size={30} color="white" />
                         }

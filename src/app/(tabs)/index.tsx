@@ -14,7 +14,6 @@ import {
     Alert,
     Animated,
     KeyboardAvoidingView,
-    Platform,
     ScrollView,
     StyleSheet,
     Text,
@@ -188,8 +187,8 @@ export default function HomeScreen() {
     return (
         <KeyboardAvoidingView
             style={[styles.container, { flex: 1 }]}
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+            behavior="padding"
+            keyboardVerticalOffset={60}
         >
             <ScrollView
                 contentContainerStyle={styles.scrollContent}

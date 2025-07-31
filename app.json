@@ -16,7 +16,8 @@
                 "foregroundImage": "./assets/images/billcounting.png",
                 "backgroundColor": "#ffffff"
             },
-            "edgeToEdgeEnabled": true
+            "edgeToEdgeEnabled": true,
+            "package": "com.Gui2dev.Billcounting"
         },
         "web": {
             "bundler": "metro",
@@ -46,6 +47,13 @@
         ],
         "experiments": {
             "typedRoutes": true
-        }
+        },
+        "extra": {
+            "router": {},
+            "eas": {
+                "projectId": "3833dd71-7946-42d6-b404-cd5f480670b8"
+            }
+        },
+        "owner": "gui2258"
     }
 }

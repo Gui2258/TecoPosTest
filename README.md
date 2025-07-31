@@ -26,17 +26,21 @@ Una aplicación móvil para el conteo de billetes desarrollada con React Native 
 ```
 
 
-1. Instalar dependencias:
+2. Instalar dependencias:
 ```bash
    npm install
 ```
 ****
 
 
-1. Iniciar la aplicación:
+3. Iniciar la aplicación:
 ```bash
    npx expo start
 ```
+
+1. Aquí depende del flujo que vaya a seguir, puede instalar expo go en su móvil desde la play store y escanear el código QR de la terminal o instalar Android studio y su emulador
+
+
 
 
 

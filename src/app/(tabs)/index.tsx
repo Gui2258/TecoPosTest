@@ -1,5 +1,6 @@
 import { Button } from '@/src/components/button';
 import { useTheme } from '@/src/context/ThemeContext';
+import { createBillEntry } from '@/src/utils/utils';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -125,9 +126,8 @@ export default function HomeScreen() {
         setDenominations(newDenominations);
     };
 
-    const saveCount = () => {
-        const now = new Date();
-        console.log(now.toLocaleString());
+    const saveCount = async () => {
+        await createBillEntry(totalSum);
     };
 
     return (

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = '@bill_count_entries';
 
-interface BillEntry {
+export interface BillEntry {
     total: number;
     date: string; // Formato ISO 8601 (ej: "2024-07-31T12:34:56.789Z")
 }

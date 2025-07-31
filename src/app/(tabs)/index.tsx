@@ -143,6 +143,7 @@ export default function HomeScreen() {
                             }
                             placeholder="0"
                             placeholderTextColor={colors.textSecondary}
+                            selectTextOnFocus={true}
                         />
                         <Text style={styles.total}>${item.total}</Text>
                     </View>

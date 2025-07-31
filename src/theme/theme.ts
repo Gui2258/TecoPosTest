@@ -1,63 +1,58 @@
 // src/theme/theme.ts
-
 export const lightColors = {
-    primary: '#5a3f17', // Oro clásico
-    gradiente1: '#6a4a19ff',
-    secondary: '#8B4513', // Marrón rojizo
-    background: '#FAFAFA', // Blanco humo
-    surface: '#FFFFFF', // Blanco puro
-    accent: '#228B22', // Verde bosque
-    textPrimary: '#1A1A1A', // Negro carbón para texto
-    textSecondary: '#555555', // Gris oscuro para texto
-    success: '#4CAF50',
-    warning: '#FF9800',
-    error: '#F44336',
-    info: '#2196F3',
-    border: '#2196F3',
+    primary: '#2E7D32', // Verde oscuro – confiable y relacionado al dinero
+    gradiente1: '#388E3C', // Verde medio para gradientes suaves
+    secondary: '#A1887F', // Marrón grisáceo – para balancear con tonos tierra
+    background: '#F7F9F9', // Blanco muy suave, casi gris claro
+    surface: '#FFFFFF', // Blanco puro para tarjetas y inputs
+    accent: '#FFB300', // Amarillo dorado para botones y destacar elementos
+    textPrimary: '#1B262C', // Azul muy oscuro para un buen contraste en texto
+    textSecondary: '#5F6A6A', // Gris azulado para texto secundario
+    success: '#4CAF50', // Verde estándar para éxito
+    warning: '#FBC02D', // Amarillo oscuro para advertencias
+    error: '#E53935', // Rojo para errores
+    info: '#1976D2', // Azul para información
+    border: '#B0BEC5', // Gris claro para bordes
 
-    // Colores para barras de navegación
-    navBarBackground: '#c6b78a', // Fondo barra navegación clara
-    navBarText: '#1A1A1A', // Texto / iconos barra navegación clara
-    navBarIcon: '#5a3f17',
-    navBarIconActive: 'white',
+    navBarBackground: '#81C784', // Verde claro para fondo de barra
+    navBarText: '#FFFFFF', // Texto blanco para contraste en barra
+    navBarIcon: '#1B262C',
+    navBarIconActive: '#FFB300',
 
-    // Colores para Quick Actions - Paleta dorada/oro
-    quickActionRandom: ['#5a3f17', '#8B4513'], // Oro oscuro a marrón rojizo
-    quickActionIngredients: ['#DAA520', '#B8860B'], // Oro dorado a oro oscuro
-    quickActionCategories: ['#CD853F', '#A0522D'], // Oro arena a marrón siena
-    quickActionDaily: ['#6a4a19', '#5a3f17'], // Gradiente oro verdoso
-    quickActionSearch: ['#D2691E', '#8B4513'], // Chocolate a marrón rojizo
-    quickActionFavorites: ['#F4A460', '#CD853F'], // Oro claro a oro arena
+    quickActionRandom: ['#2E7D32', '#66BB6A'], // Verde gradiente
+    quickActionIngredients: ['#FFB300', '#FFA000'], // Dorado gradiente
+    quickActionCategories: ['#8D6E63', '#6D4C41'], // Marrones cálidos
+    quickActionDaily: ['#43A047', '#388E3C'], // Verdes medios
+    quickActionSearch: ['#81C784', '#66BB6A'], // Verde claro a medio
+    quickActionFavorites: ['#FFCA28', '#FFC107'], // Amarillo dorado claro
 };
 
 export const darkColors = {
-    primary: '#E8B86D', // Dorado cálido
-    secondary: '#C77DFF', // Púrpura vibrante
-    gradiente1: '#a66b14ff',
-    background: '#1A1A1A', // Negro carbón
-    surface: '#2D2D2D', // Gris oscuro
-    accent: '#00F5FF', // Cian brillante
-    textPrimary: '#FFFFFF', // Blanco puro para texto
-    textSecondary: '#B8B8B8', // Gris claro para texto
+    primary: '#81C784', // Verde claro para modo oscuro
+    secondary: '#BCAAA4', // Marrón claro para contraste suave
+    gradiente1: '#388E3C', // Verde medio para gradientes
+    background: '#121917', // Verde muy oscuro / casi negro
+    surface: '#1E2E20', // Verde oscuro para superficies
+    accent: '#FFC107', // Amarillo brillante para acentos
+    textPrimary: '#E0F2F1', // Verde agua claro para texto
+    textSecondary: '#A5D6A7', // Verde pálido para texto secundario
     success: '#4CAF50',
-    warning: '#FF9800',
-    error: '#F44336',
-    info: '#2196F3',
-    border: '#2196F3',
+    warning: '#FBC02D',
+    error: '#E53935',
+    info: '#1976D2',
+    border: '#4E342E',
 
-    // Colores para barras de navegación
-    navBarBackground: '#25292e', // Fondo barra navegación oscura
-    navBarText: '#E8B86D', // Texto / iconos barra navegación oscura (color dorado de acento)
-    navBarIcon: '#FFF',
-    navBarIconActive: '#E8B86D',
+    navBarBackground: '#263238', // Fondo navbar oscuro
+    navBarText: '#FFC107', // Texto navbar amarillo para contraste
+    navBarIcon: '#A5D6A7',
+    navBarIconActive: '#FFC107',
 
-    // Colores para Quick Actions - Paleta dorada para tema oscuro
-    quickActionRandom: ['#E8B86D', '#F4D03F'], // Dorado cálido a dorado brillante
-    quickActionIngredients: ['#FFD700', '#FFA500'], // Oro puro a naranja dorado
-    quickActionCategories: ['#DEB887', '#D2691E'], // Oro pálido a chocolate
-    quickActionDaily: ['#a66b14', '#5a3f17'], // Gradiente oro oscuro a cálido
-    quickActionSearch: ['#F0E68C', '#DAA520'], // Caqui dorado a oro dorado
-    quickActionFavorites: ['#FFCC99', '#CD853F'], // Melocotón dorado a oro arena
+    quickActionRandom: ['#81C784', '#388E3C'],
+    quickActionIngredients: ['#FFCA28', '#FFB300'],
+    quickActionCategories: ['#BCAAA4', '#8D6E63'],
+    quickActionDaily: ['#43A047', '#2E7D32'],
+    quickActionSearch: ['#A5D6A7', '#81C784'],
+    quickActionFavorites: ['#FFD54F', '#FFC107'],
 };
 
 // Espaciado, fuentes y tamaños comunes

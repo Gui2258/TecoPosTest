@@ -1,6 +1,7 @@
 import ThemeToggleButton from '@/src/components/ToggleThemeButton';
 import { useTheme } from '@/src/context/ThemeContext';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Octicons from '@expo/vector-icons/Octicons';
 import { Tabs } from 'expo-router';
 
 export default function RootLayout() {
@@ -46,6 +47,20 @@ export default function RootLayout() {
                             size={24}
                             color={color}
                         />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="history"
+                options={{
+                    title: 'Histórico',
+                    headerTitle: 'Histórico',
+
+                    headerTitleStyle: {
+                        // fontFamily: fonts.EduQLDRegular,
+                    },
+                    tabBarIcon: ({ color, focused }) => (
+                        <Octicons name="history" size={24} color={color} />
                     ),
                 }}
             />

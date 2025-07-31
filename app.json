@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "TecoPosTechTest",
-        "slug": "TecoPosTechTest",
+        "name": "Billcounting",
+        "slug": "Billcounting",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",

@@ -1,9 +1,10 @@
+import { Button } from '@/src/components/button';
 import { useTheme } from '@/src/context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
+import Fontisto from '@expo/vector-icons/Fontisto';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
     Dimensions,
-    Pressable,
     ScrollView,
     StyleSheet,
     Text,
@@ -55,6 +56,7 @@ export default function HomeScreen() {
             padding: 16,
         },
         scrollContent: {
+            backgroundColor: colors.background,
             padding: 16,
             flexGrow: 1,
         },
@@ -99,25 +101,12 @@ export default function HomeScreen() {
             backgroundColor: colors.surface,
             borderRadius: 8,
         },
-        button: {
-            backgroundColor: colors.primary,
-            padding: 10,
-            borderRadius: 12,
-            marginBottom: 20,
-            width: width * 0.2,
-            alignItems: 'center',
-            justifyContent: 'center',
-            shadowColor: '#000',
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-            borderWidth: 1,
-            borderColor: colors.primary,
+        buttonContainer: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 16,
         },
+
         text: {
             color: colors.background,
             fontSize: 20,
@@ -157,11 +146,21 @@ export default function HomeScreen() {
                 </View>
             ))}
             <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
-            <Pressable onPress={clearData}>
-                <View style={styles.button}>
-                    <Feather name="trash-2" size={30} color="white" />
-                </View>
-            </Pressable>
+
+            <View style={styles.buttonContainer}>
+                <Button
+                    onPress={clearData}
+                    childIcon={
+                        <Feather name="trash-2" size={30} color="white" />
+                    }
+                />
+                <Button
+                    onPress={clearData}
+                    childIcon={
+                        <Fontisto name="favorite" size={30} color="white" />
+                    }
+                />
+            </View>
         </ScrollView>
     );
 }

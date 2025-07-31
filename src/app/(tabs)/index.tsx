@@ -125,6 +125,11 @@ export default function HomeScreen() {
         setDenominations(newDenominations);
     };
 
+    const saveCount = () => {
+        const now = new Date();
+        console.log(now.toLocaleString());
+    };
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={'position'}>
             <ScrollView
@@ -158,7 +163,7 @@ export default function HomeScreen() {
                         }
                     />
                     <Button
-                        onPress={clearData}
+                        onPress={saveCount}
                         childIcon={
                             <Fontisto name="favorite" size={30} color="white" />
                         }

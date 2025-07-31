@@ -1,6 +1,6 @@
 // src/theme/theme.ts
 export const lightColors = {
-    primary: '#0d5711ff', // Verde oscuro – confiable y relacionado al dinero
+    primary: '#2c3424', // Verde oscuro – confiable y relacionado al dinero
     gradiente1: '#388E3C', // Verde medio para gradientes suaves
     secondary: '#A1887F', // Marrón grisáceo – para balancear con tonos tierra
     background: '#F7F9F9', // Blanco muy suave, casi gris claro
@@ -14,7 +14,7 @@ export const lightColors = {
     info: '#1976D2', // Azul para información
     border: '#B0BEC5', // Gris claro para bordes
 
-    navBarBackground: '#658e4cff', // Verde claro para fondo de barra
+    navBarBackground: '#4c583E', // Verde claro para fondo de barra
     navBarText: '#FFFFFF', // Texto blanco para contraste en barra
     navBarIcon: '#1B262C',
     navBarIconActive: '#FFB300',
@@ -28,7 +28,7 @@ export const lightColors = {
 };
 
 export const darkColors = {
-    primary: '#1b581eff', // Verde claro para modo oscuro
+    primary: '#4c583E', // Verde claro para modo oscuro
     secondary: '#BCAAA4', // Marrón claro para contraste suave
     gradiente1: '#388E3C', // Verde medio para gradientes
     background: '#121917', // Verde muy oscuro / casi negro
@@ -42,7 +42,7 @@ export const darkColors = {
     info: '#1976D2',
     border: '#897b5fff',
 
-    navBarBackground: '#2c3422', // Fondo navbar oscuro
+    navBarBackground: '#2c3424', // Fondo navbar oscuro
     navBarText: '#FFC107', // Texto navbar amarillo para contraste
     navBarIcon: '#A5D6A7',
     navBarIconActive: '#FFC107',

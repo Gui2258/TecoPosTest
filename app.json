@@ -33,6 +33,15 @@
                     "resizeMode": "contain",
                     "backgroundColor": "#ffffff"
                 }
+            ],
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "enableProguardInReleaseBuilds": true,
+                        "useLegacyPackaging": true
+                    }
+                }
             ]
         ],
         "experiments": {

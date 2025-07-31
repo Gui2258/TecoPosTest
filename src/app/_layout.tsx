@@ -1,5 +1,6 @@
 import * as NavigationBar from 'expo-navigation-bar';
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -30,10 +31,10 @@ export default function RootLayout() {
     }, []);
     return (
         <ThemeProvider>
-            {/*  <StatusBar
-                style="inverted"
+            <StatusBar
+                style="light"
                 hidden={false} // Mostrar status bar pero ocultar navigation bar
-            /> */}
+            />
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="(tabs)" />
             </Stack>

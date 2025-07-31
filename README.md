@@ -6,7 +6,6 @@ Una aplicación móvil para el conteo de billetes desarrollada con React Native 
 - Tema claro/oscuro
 - Interfaz intuitiva y fácil de usar
 - Almacenamiento local de datos
-- Soporte para modo inmersivo en Android
 ## Tecnologías Utilizadas
 - React Native
 - Expo
@@ -19,8 +18,6 @@ Una aplicación móvil para el conteo de billetes desarrollada con React Native 
 - Node.js (v14 o superior)
 - npm o yarn
 - Expo CLI
-- Android Studio (para desarrollo en Android)
-- Xcode (para desarrollo en iOS, solo macOS)
 ## Instalación
 1. Clonar el repositorio:
 ```bash

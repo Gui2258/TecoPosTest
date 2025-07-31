@@ -105,6 +105,13 @@ export default function HomeScreen() {
             padding: 16,
             flexGrow: 1,
         },
+        tittle: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: colors.textPrimary,
+            marginBottom: 10,
+            textAlign: 'center',
+        },
         row: {
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -189,6 +196,9 @@ export default function HomeScreen() {
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
+                {/*  <Text style={styles.tittle}>
+                    Introduzca la cantidad de billetes
+                </Text> */}
                 {denominations.map((item, index) => (
                     <Animated.View
                         key={item.value}

@@ -5,6 +5,7 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
     Dimensions,
+    KeyboardAvoidingView,
     ScrollView,
     StyleSheet,
     Text,
@@ -53,7 +54,7 @@ export default function HomeScreen() {
         container: {
             flex: 1,
             backgroundColor: colors.background,
-            padding: 16,
+            //padding: 16,
         },
         scrollContent: {
             backgroundColor: colors.background,
@@ -125,42 +126,44 @@ export default function HomeScreen() {
     };
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-        >
-            {denominations.map((item, index) => (
-                <View key={item.value} style={styles.row}>
-                    <Text style={styles.denomination}>${item.value}</Text>
-                    <TextInput
-                        style={styles.input}
-                        keyboardType="numeric"
-                        value={item.quantity}
-                        onChangeText={(text) =>
-                            handleQuantityChange(text, index)
-                        }
-                        placeholder="0"
-                        placeholderTextColor={colors.textSecondary}
-                    />
-                    <Text style={styles.total}>${item.total}</Text>
-                </View>
-            ))}
-            <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
+        <KeyboardAvoidingView style={styles.container} behavior={'position'}>
+            <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                keyboardShouldPersistTaps="handled"
+            >
+                {denominations.map((item, index) => (
+                    <View key={item.value} style={styles.row}>
+                        <Text style={styles.denomination}>${item.value}</Text>
+                        <TextInput
+                            style={styles.input}
+                            keyboardType="numeric"
+                            value={item.quantity}
+                            onChangeText={(text) =>
+                                handleQuantityChange(text, index)
+                            }
+                            placeholder="0"
+                            placeholderTextColor={colors.textSecondary}
+                        />
+                        <Text style={styles.total}>${item.total}</Text>
+                    </View>
+                ))}
+                <Text style={styles.grandTotal}>Total: ${totalSum}</Text>
 
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={clearData}
-                    childIcon={
-                        <Feather name="trash-2" size={30} color="white" />
-                    }
-                />
-                <Button
-                    onPress={clearData}
-                    childIcon={
-                        <Fontisto name="favorite" size={30} color="white" />
-                    }
-                />
-            </View>
-        </ScrollView>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={clearData}
+                        childIcon={
+                            <Feather name="trash-2" size={30} color="white" />
+                        }
+                    />
+                    <Button
+                        onPress={clearData}
+                        childIcon={
+                            <Fontisto name="favorite" size={30} color="white" />
+                        }
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }

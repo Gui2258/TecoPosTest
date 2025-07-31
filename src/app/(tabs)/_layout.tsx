@@ -1,5 +1,6 @@
 import ThemeToggleButton from '@/src/components/ToggleThemeButton';
 import { useTheme } from '@/src/context/ThemeContext';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { Tabs } from 'expo-router';
 
 export default function RootLayout() {
@@ -29,6 +30,25 @@ export default function RootLayout() {
                 },
                 headerRight: () => <ThemeToggleButton />,
             }}
-        ></Tabs>
+        >
+            <Tabs.Screen
+                name="index"
+                options={{
+                    title: 'Conunt',
+                    headerTitle: 'Conunt',
+
+                    headerTitleStyle: {
+                        // fontFamily: fonts.EduQLDRegular,
+                    },
+                    tabBarIcon: ({ color, focused }) => (
+                        <FontAwesome5
+                            name={focused ? 'money-bill-alt' : 'money-bill'}
+                            size={24}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+        </Tabs>
     );
 }

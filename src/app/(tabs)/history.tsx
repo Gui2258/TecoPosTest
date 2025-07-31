@@ -1,12 +1,12 @@
+import { useTheme } from '@/src/context/ThemeContext';
 import { BillEntry, readBillEntries } from '@/src/utils/utils';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function About() {
-    // Corrección 1: Cambiar el tipo a BillEntry[] (array) en lugar de un solo objeto
     const [entries, setEntries] = useState<BillEntry[]>([]);
-    // Corrección 2: Estado para manejar carga
     const [loading, setLoading] = useState(true);
+    const { colors } = useTheme();
 
     const getBilies = async () => {
         try {
@@ -36,9 +36,43 @@ export default function About() {
         });
     };
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            padding: 20,
+            backgroundColor: colors.background,
+        },
+        title: {
+            fontSize: 22,
+            fontWeight: 'bold',
+            marginBottom: 20,
+            color: colors.textPrimary,
+            textAlign: 'center',
+        },
+        entry: {
+            backgroundColor: colors.surface,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            elevation: 2,
+        },
+        date: {
+            fontSize: 16,
+            color: colors.textPrimary,
+        },
+        amount: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: colors.textPrimary,
+        },
+    });
+
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.title}>Histórico de Billetes</Text>
+            <Text style={styles.title}>Histórico de Conteos</Text>
 
             {loading ? (
                 <Text>Cargando...</Text>
@@ -59,37 +93,3 @@ export default function About() {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: '#f5f5f5',
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        color: '#333',
-        textAlign: 'center',
-    },
-    entry: {
-        backgroundColor: 'white',
-        padding: 15,
-        borderRadius: 8,
-        marginBottom: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        elevation: 2,
-    },
-    date: {
-        fontSize: 16,
-        color: '#666',
-    },
-    amount: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#2ecc71',
-    },
-});

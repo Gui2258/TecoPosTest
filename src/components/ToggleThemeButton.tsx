@@ -17,7 +17,7 @@ export default function ThemeToggleButton() {
                 <MaterialCommunityIcons
                     name="weather-night"
                     size={24}
-                    color={colors.primary}
+                    color={colors.textPrimary}
                 />
             ) : (
                 <MaterialCommunityIcons

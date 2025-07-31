@@ -13,6 +13,7 @@ export const lightColors = {
     error: '#E53935', // Rojo para errores
     info: '#1976D2', // Azul para información
     border: '#B0BEC5', // Gris claro para bordes
+    titleText: '#dddddd',
 
     navBarBackground: '#4c583E', // Verde claro para fondo de barra
     navBarText: '#FFFFFF', // Texto blanco para contraste en barra
@@ -41,6 +42,7 @@ export const darkColors = {
     error: '#E53935',
     info: '#1976D2',
     border: '#897b5fff',
+    titleText: '#FFFFFF',
 
     navBarBackground: '#2c3424', // Fondo navbar oscuro
     navBarText: '#FFC107', // Texto navbar amarillo para contraste

@@ -17,7 +17,7 @@ export default function RootLayout() {
                     },
 
                     headerShadowVisible: false,
-                    headerTintColor: colors.textPrimary,
+                    headerTintColor: colors.titleText,
 
                     tabBarStyle: {
                         backgroundColor: colors.navBarBackground,

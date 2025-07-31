@@ -11,6 +11,7 @@ import React, {
     useState,
 } from 'react';
 import {
+    Alert,
     Animated,
     KeyboardAvoidingView,
     Platform,
@@ -168,7 +169,13 @@ export default function HomeScreen() {
     };
 
     const handleSave = () => {
+        if (totalSum === 0) {
+            Alert.alert('Success', 'Debe introducir datos para guardar!');
+            return;
+        }
+
         createBillEntry(totalSum);
+        Alert.alert('Success', 'Cuanta guardada satisfactoriamnete!');
     };
 
     return (

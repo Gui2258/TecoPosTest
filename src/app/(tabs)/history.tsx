@@ -1,8 +1,9 @@
 import { useTheme } from '@/src/context/ThemeContext';
-import { BillEntry, readBillEntries } from '@/src/utils/utils';
+import { BillEntry, deleteBillEntry, readBillEntries } from '@/src/utils/utils';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect, useRef, useState } from 'react';
 import {
+    Alert,
     Animated,
     Pressable,
     RefreshControl,
@@ -25,14 +26,12 @@ export default function About() {
         }[]
     >([]);
 
-    // Inicializar valores animados cuando cambian las entradas
     useEffect(() => {
         animations.current = entries.map(() => ({
             opacity: new Animated.Value(0),
             translateY: new Animated.Value(-20),
         }));
 
-        // Animar secuencialmente las filas
         const animationsSequence = entries.map((_, i) =>
             Animated.parallel([
                 Animated.timing(animations.current[i].opacity, {
@@ -69,7 +68,6 @@ export default function About() {
         getBilies();
     }, []);
 
-    // Función para formatear fechas
     const formatDate = (isoString: string) => {
         const date = new Date(isoString);
         return date.toLocaleDateString('es-ES', {
@@ -80,19 +78,37 @@ export default function About() {
             minute: '2-digit',
         });
     };
+
+    // Función para eliminar una entrada con confirmación
+    const handleDeleteEntry = (index: number) => {
+        Alert.alert(
+            'Confirmar eliminación',
+            '¿Estás seguro que quieres eliminar este registro?',
+            [
+                { text: 'Cancelar', style: 'cancel' },
+                {
+                    text: 'Eliminar',
+                    style: 'destructive',
+                    onPress: () => {
+                        deleteBillEntry(index);
+                        setEntries((prev) =>
+                            prev.filter((_, i) => i !== index)
+                        );
+                    },
+                },
+            ]
+        );
+    };
+
     const animateRotation = () => {
-        // Reiniciamos el valor a 0 antes de animar para permitir múltiples clics
         rotation.setValue(0);
 
         Animated.timing(rotation, {
-            toValue: 1, // de 0 a 1 (un ciclo completo)
-            duration: 800, // duración en milisegundos
+            toValue: 1,
+            duration: 800,
             useNativeDriver: true,
-        }).start(() => {
-            // Al terminar la animación, podemos hacer algo aquí si quieres
-        });
+        }).start();
 
-        // Además, refrescamos datos:
         getBilies();
     };
 
@@ -122,11 +138,22 @@ export default function About() {
         date: {
             fontSize: 16,
             color: colors.textPrimary,
+            flex: 1,
         },
         amount: {
             fontSize: 18,
             fontWeight: 'bold',
             color: colors.textPrimary,
+            flex: 1,
+            textAlign: 'right',
+        },
+        deleteButton: {
+            padding: 8,
+            marginLeft: 12,
+            backgroundColor: colors.error || '#d32f2f',
+            borderRadius: 6,
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         button: {
             position: 'absolute',
@@ -162,7 +189,6 @@ export default function About() {
         outputRange: ['0deg', '360deg'],
     });
 
-    // Añadimos estilo animado para rotar:
     const animatedStyle = {
         transform: [{ rotate: rotateInterpolate }],
     };
@@ -209,6 +235,17 @@ export default function About() {
                             <Text style={styles.amount}>
                                 ${entry.total.toLocaleString('es-ES')}
                             </Text>
+                            <Pressable
+                                style={styles.deleteButton}
+                                onPress={() => handleDeleteEntry(index)}
+                                android_ripple={{ color: '#ff4d4d' }}
+                            >
+                                <Ionicons
+                                    name="trash"
+                                    size={20}
+                                    color="white"
+                                />
+                            </Pressable>
                         </Animated.View>
                     ))
                 )}
